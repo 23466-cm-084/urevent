@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard | UR Events</title>
+<link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+<style>
+
+/* ===== BODY ===== */
+body{
+    margin:0;
+    font-family: 'Segoe UI', sans-serif;
+    background:#f3f4f7;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+    position:fixed;
+    width:250px;
+    height:100%;
+    background: linear-gradient(to right, #ED4690, #5522CC);
+    color:white;
+    padding-top:20px;
+}
+
+.admin-profile{
+    text-align:center;
+    padding:20px;
+}
+
+.admin-profile img{
+    width:80px;
+    border-radius:50%;
+}
+
+.sidebar a{
+    display:block;
+    padding:15px 25px;
+    color:white;
+    text-decoration:none;
+    font-size:16px;
+}
+
+.sidebar a:hover{
+    background:#492993;
+}
+
+/* ===== MAIN AREA ===== */
+.main{
+    margin-left:250px;
+}
+
+/* TOP BAR */
+.topbar{
+    background:linear-gradient(to left, #ED4690, #5522CC);
+    height:60px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 25px;
+    color:white;
+}
+
+/* CONTENT */
+.content{
+    padding:30px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* TABLE */
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#4c3289;
+    color:white;
+    padding:12px;
+}
+
+td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+}
+
+/* BUTTONS */
+.btn{
+    padding:7px 14px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    color:white;
+}
+
+.edit{ background:#1e88e5; }
+.delete{ background:#e53935; }
+.add{ background:#43a047; }
+
+</style>
+</head>
+
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<div class="sidebar">
+
+    <div class="admin-profile">
+        <img src="{{ url_for('static', filename='images/Elon_musk.jpg') }}">
+        <h3>Hello, Admin</h3>
+    </div>
+
+    <a href="/admin/dashboard">🏠 Dashboard</a>
+    <a href="#">🎫 Events</a>
+    <a href="/admin/add-event">➕ Add Event</a>
+    <a href="/admin/registrations">📋 Registrations</a>
+    <a href="/admin/messages">📩 Contact Messages</a>
+    <a href="#">⭐ Featured Events</a>
+    <a href="/admin/logout" style="display: flex;align-items: center;gap: 15px;">
+         Logout <img src="{{ url_for('static', filename='images/exit.png') }}" style="width:53px;"></a>
+
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <h2>Admin Dashboard</h2>
+        <div>UR Events Admin Panel</div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <div class="card">
+            <h2>Recent Events</h2>
+
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Event Name</th>
+                    <th>College</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+
+                {% for e in events %}
+                <tr>
+                    <td>{{ e.id }}</td>
+                    <td>{{ e.title }}</td>
+                    <td>{{ e.college }}</td>
+                    <td>{{ e.date }}</td>
+
+                    <td>
+                        <a href="/admin/update/{{ e.id }}">
+                            <button class="btn edit">Edit</button>
+                        </a>
+
+                        <a href="/admin/delete/{{ e.id }}">
+                            <button class="btn delete">Delete</button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

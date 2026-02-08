@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>All Events | UR Events</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+<style>
+*{
+    box-sizing:border-box;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
+body{
+    margin:0;
+    background:#f6f6fb;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar{
+    padding:18px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:white;
+}
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-weight:500;
+}
+.login-btn{
+    padding:6px 16px;
+    border:1px solid white;
+    border-radius:20px;
+}
+
+/* ---------- HEADER ---------- */
+.header{
+    padding:70px 20px 100px;
+    text-align:center;
+    color:white;
+}
+.header h1{
+    margin:0;
+    font-size:36px;
+}
+
+/* ---------- FILTER BAR (UI ONLY) ---------- */
+.filters{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:-20px;
+    flex-wrap:wrap;
+}
+.filters select{
+    padding:10px 14px;
+    border-radius:20px;
+    border:none;
+    background:white;
+    box-shadow:0 5px 15px rgba(0,0,0,0.15);
+}
+
+/* ---------- EVENTS GRID ---------- */
+.section{
+    padding:60px 40px;
+}
+.events-grid{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+}
+
+/* ---------- EVENT CARD ---------- */
+.event-card{
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 12px 30px rgba(0,0,0,0.12);
+    position:relative;
+}
+.event-img{
+    height:170px;
+    background-size:cover;
+    background-position:center;
+}
+.date-badge{
+    position:absolute;
+    top:10px;
+    left:10px;
+    background:white;
+    border-radius:10px;
+    padding:6px 8px;
+    text-align:center;
+    font-size:12px;
+    font-weight:bold;
+}
+.date-badge span{
+    display:block;
+    font-size:16px;
+}
+.event-body{
+    padding:16px;
+}
+.event-title{
+    font-weight:600;
+    margin:6px 0;
+}
+.event-desc{
+    font-size:13px;
+    color:#666;
+}
+.event-meta{
+    font-size:13px;
+    color:#777;
+    margin-top:10px;
+}
+.event-link{
+    display:inline-block;
+    margin-top:12px;
+    padding:8px 14px;
+    background:#7b2ff7;
+    color:white;
+    border-radius:20px;
+    font-size:13px;
+    text-decoration:none;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+    background:#0c0c5c;
+    color:#ccc;
+    padding:40px;
+    font-size:13px;
+}
+footer .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+}
+footer h4{
+    color:white;
+}
+footer input{
+    padding:8px;
+    border-radius:20px;
+    border:none;
+    width:70%;
+}
+footer button{
+    padding:8px 12px;
+    background:#f107a3;
+    border:none;
+    color:white;
+    border-radius:20px;
+}
+.copy{
+    text-align:center;
+    margin-top:20px;
+    opacity:0.6;
+}
+
+.main{
+    background-image:url('{{ url_for('static', filename='images/Main_Background_Image.png') }}');
+    background-position: center center;
+    background-size: max(1200px, 100vw);
+    background-repeat: no-repeat;
+    width: 100%;
+}
+
+.logo img {
+        height: 45px;   /* adjust if needed */
+        width: auto;
+        display: block;
+        }
+</style>
+</head>
+
+<body>
+
+<div class="main">
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">
+    <a href="/">
+        <img src="{{ url_for('static', filename='images/UR_logo.png') }}" alt="UR Events Logo">
+    </a>
+    </div>
+    <div>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="#">Contact</a>
+        <a href="/admin/login" class="login-btn">Admin</a>
+    </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+    <h1>All Events</h1>
+</div>
+
+</div>
+
+<!-- FILTER BAR -->
+<div class="filters">
+    <select><option>Weekdays</option></select>
+    <select><option>Popular</option></select>
+    <select><option>Latest</option></select>
+    <select><option>University</option></select>
+    <select><option>Price</option></select>
+</div>
+
+<!-- EVENTS -->
+<div class="section">
+    <div class="events-grid">
+
+        {% for event in events %}
+        <div class="event-card">
+
+            <div class="event-img"
+                 style="background-image:url('{{ url_for('static', filename='uploads/' + (event.image or 'default.png')) }}')">
+            </div>
+
+            <div class="date-badge">
+                <span>{{ event.date.split('-')[2] }}</span>
+                {{ event.date.split('-')[1] }}
+            </div>
+
+            <div class="event-body">
+                <div class="event-title">{{ event.title }}</div>
+                <div class="event-desc">
+                    We’ll get you directly seated and inside for you to enjoy the show.
+                </div>
+                <div class="event-meta">
+                    📍 {{ event.college }}
+                </div>
+                <a href="/event/{{ event.id }}" class="event-link">View Details</a>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+<div class="grid">
+    <div>
+        <div class="logo">
+        <a href="/">
+            <img src="{{ url_for('static', filename='images/UR_logo.png') }}" alt="UR Events Logo">
+        </a>
+        </div>
+        <p>College event discovery and management platform.</p>
+    </div>
+    <div>
+        <h4>Plan Events</h4>
+        <p>Create & Set Up</p>
+        <p>Online RSVP</p>
+    </div>
+    <div>
+        <h4>Eventick</h4>
+        <p>About</p>
+        <p>Contact</p>
+    </div>
+    <div>
+        <h4>Stay in the Loop</h4>
+        <input placeholder="Email">
+        <button>Subscribe</button>
+    </div>
+</div>
+<div class="copy">© 2025 UR Events</div>
+</footer>
+
+</body>
+</html>

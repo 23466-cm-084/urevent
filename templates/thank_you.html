@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Thank You | UR Events</title>
+<link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+<style>
+
+body{
+    margin:0;
+    font-family:'Segoe UI', Arial;
+    min-height:100vh;
+    background:linear-gradient(135deg,#7b2ff7,#f107a3);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+/* CARD */
+.card{
+    width:420px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(14px);
+    padding:40px;
+    border-radius:18px;
+    box-shadow:0 15px 45px rgba(0,0,0,0.25);
+    color:white;
+}
+
+/* ICON */
+.icon{
+    font-size:60px;
+    margin-bottom:15px;
+}
+
+/* TITLE */
+h2{
+    margin-bottom:10px;
+}
+
+/* BUTTON */
+.btn{
+    margin-top:20px;
+    padding:12px 24px;
+    border:none;
+    border-radius:10px;
+    background:#ff2f92;
+    color:white;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background:#ff4ecd;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="icon">✅</div>
+
+<h2>Registration Successful!</h2>
+
+<p>
+Thank you for registering.<br>
+Our team will contact you soon.
+</p>
+
+<a href="/">
+<button class="btn">
+🏠 Back to Home
+</button>
+</a>
+
+</div>
+
+</body>
+</html>

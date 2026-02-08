@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UR Events | Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f6f6fb;
+        }
+
+        /* ---------------- NAVBAR ---------------- */
+        .navbar {
+            padding: 18px 40px;
+           /* background: linear-gradient(to right, #ED4690, #5522CC);*/
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position:relative;
+            height:8vh;
+        }
+
+        .navbar .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom:12px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+        }
+
+        .login-btn {
+            padding: 6px 16px;
+            border: 1px solid white;
+            border-radius: 20px;
+        }
+
+        /* ---------------- HERO ---------------- */
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-position:center center;
+            background-size: max(1200px, 85vw);
+            background-repeat: no-repeat;
+            padding: 60px;
+            border-radius: 30px;
+            margin: 40px;
+            color: white;
+            position: relative;
+            width:85vw;
+            height:45vh;
+            margin:auto;
+        }
+
+        .hero-left {
+            display:flex;
+            justify-content:center;
+            align-items: center;
+            position: relative;
+            width:40%;
+        }
+
+        .hero-right {
+            padding-left: 40px;
+            width:30%;
+        }
+
+        .slide {
+            display: none;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .learn-btn, .about-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 24px;
+            background: #f107a3;
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nav {
+            position: absolute;
+            top: 50%;
+            background: rgba(255, 255, 255, 0.33);
+            border: none;
+            border-radius: 26px;
+            width: 2vw;
+            height: 2vw;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .prev { left: -40px; }
+        .next { right: -30px; }
+
+
+        /* ---------------- CATEGORY ICONS ---------------- */
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 180px;
+            padding: 25px 10px;
+            color: white;
+            position:relative;
+            height:17vh;
+        }
+
+        .cat {
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .cat span {
+            display: block;
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+
+        /* ---------------- UPCOMING EVENTS ---------------- */
+        .section {
+            padding: 60px 40px;
+            background-image:url('{{ url_for('static', filename='images/cele_3.png') }}');
+            background-position: center center;
+            background-size: max(1200px, 100vw);
+            background-repeat: no-repeat;
+            width: 100%;
+        }
+
+        .section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+        }
+
+        .event-img {
+            height: 160px;
+            background: #ddd;
+        }
+
+        .event-content {
+            padding: 16px;
+        }
+
+        .event-content h4 {
+            margin: 5px 0;
+        }
+
+        .event-meta {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .event-btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 14px;
+            background: #7b2ff7;
+            color: white;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        /* ---------------- CTA ---------------- */
+        .cta {
+            margin-bottom: 80px;
+            background: linear-gradient(120deg, #7b2ff7, #f107a3);
+            padding: 60px 40px;
+            color: white;
+        }
+
+        .cta-box {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cta button {
+            background: #f107a3;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* ---------------- FOOTER ---------------- */
+        footer {
+            background: #0c0c5c;
+            color: #ccc;
+            padding: 40px;
+            font-size: 13px;
+        }
+
+        footer .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        footer h4 {
+            color: white;
+        }
+
+        footer input {
+            padding: 8px;
+            border-radius: 20px;
+            border: none;
+            width: 70%;
+        }
+
+        footer button {
+            padding: 8px 12px;
+            background: #f107a3;
+            border: none;
+            color: white;
+            border-radius: 20px;
+        }
+
+        .copy {
+            text-align: center;
+            margin-top: 20px;
+            opacity: 0.6;
+        }
+
+        .logo img {
+        height: 45px;   /* adjust if needed */
+        width: auto;
+        display: block;
+        }
+
+        .All{
+            background-image:url('{{ url_for('static', filename='images/party_background_image.png') }}');
+            /*In response also the img should not shrink(halejani) */
+            background-size: max(1200px, 100vw);
+            background-repeat: no-repeat;
+            background-position: center center;
+            width: 100%;
+            height:70vh;
+            position: relative;
+            top: 0;
+        }
+
+        .opacitybox {
+        background: linear-gradient(to right, #ED4690, #5522CC);
+        width: 100%;
+        height:70vh;
+        opacity: 0.9;
+        position: absolute;
+        top: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="All" >
+    <div class="opacitybox" >
+
+    </div>
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">
+    <a href="/">
+        <img src="{{ url_for('static', filename='images/UR_logo.png') }}" alt="UR Events Logo">
+    </a>
+    </div>
+
+    <div>
+        <a href="/events">Events</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/admin/login" class="login-btn">Admin</a>
+    </div>
+</div>
+
+<!-- HERO -->
+<div class="hero" style="background-image:url('{{ url_for('static', filename='images/herobgimg.png') }}');">
+
+    <!-- LEFT SLIDER -->
+    <div class="hero-left">
+        {% for event in featured_events %}
+        <div class="slide {% if loop.first %}active{% endif %}">
+            <h2>{{ event.title }}</h2>
+            <p>{{ event.college }}</p>
+            <p>{{ event.description[:80] }}...</p>
+
+            <a href="/event/{{ event.id }}" class="learn-btn">
+                Learn More
+            </a>
+        </div>
+        {% endfor %}
+
+        <button class="nav prev" onclick="prevSlide()">‹</button>
+        <button class="nav next" onclick="nextSlide()">›</button>
+    </div>
+
+    <!-- RIGHT STATIC INFO -->
+    <div class="hero-right">
+        <h1>UR Events</h1>
+        <p>
+            Stay updated with academic talks, workshops,
+            and celebrations across Sri Lankan universities.
+        </p>
+        <a href="/about" class="about-btn">About Us</a>
+    </div>
+
+</div>
+
+
+<!-- CATEGORIES -->
+<div class="categories">
+    <div class="cat"><a href="/events"><img src="{{ url_for('static', filename='images/music.png') }}" alt="Music" style="width: 6vw;"></a></div>
+    <div class="cat"><a href="/events"><img src="{{ url_for('static', filename='images/conferances.png') }}" alt="Conferances" style="width: 8vw;"></a></div>
+    <div class="cat"><a href="/events"><img src="{{ url_for('static', filename='images/celebrations.png') }}" alt="Celebrations" style="width: 7vw;"></a></div>
+    <div class="cat"><a href="/events"><img src="{{ url_for('static', filename='images/games.png') }}" alt="Games" style="width: 4vw;"></a></div>
+</div>
+
+  
+</div>
+
+<!-- UPCOMING EVENTS -->
+<div class="section">
+    <h2>Upcoming Events</h2>
+
+    <div class="events-grid">
+        {% for event in events %}
+        <div class="event-card">
+            
+            <div class="event-img"
+            style="background-image: url('{{ url_for('static', filename='uploads/' + (event.image or 'default.png')) }}');
+            background-size: cover;
+            background-position: center;">
+            </div>
+
+            <div class="event-content">
+                <h4>{{ event.title }}</h4>
+                <div class="event-meta">
+                    📍 {{ event.college }} <br>
+                    📅 {{ event.date }}
+                </div>
+                <a href="/event/{{ event.id }}" class="event-btn">
+                    View Details
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+    <div class="cta-box">
+        <div>
+            <h2>Add Your Loving Event</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <button onclick="location.href='/events'">View All Events</button>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="grid">
+        <div>
+            <div class="logo">
+            <a href="/">
+                <img src="{{ url_for('static', filename='images/UR_logo.png') }}" alt="UR Events Logo">
+            </a>
+            </div>
+            <p>
+                A college event platform to explore, manage and
+                participate in academic and cultural events.
+            </p>
+        </div>
+
+        <div>
+            <h4>Plan Events</h4>
+            <p>Create & Set Up</p>
+            <p>Online RSVP</p>
+            <p>Online Events</p>
+        </div>
+
+        <div>
+            <h4>Eventick</h4>
+            <p>About Us</p>
+            <p>Contact</p>
+            <p>Help Center</p>
+        </div>
+
+        <div>
+            <h4>Stay in the Loop</h4>
+            <input type="email" placeholder="Email">
+            <button><a href='/contact' style="text-decoration:none;color:white;">Subscribe</a></button>
+        </div>
+    </div>
+
+    <div class="copy">
+        © 2025 UR Events
+    </div>
+</footer>
+
+
+<script>
+let currentSlide = 0;
+const slides = document.querySelectorAll(".slide");
+
+function showSlide(index){
+    slides.forEach(s => s.classList.remove("active"));
+    slides[index].classList.add("active");
+}
+
+function nextSlide(){
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+}
+
+function prevSlide(){
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+}
+</script>
+
+</body>
+</html>

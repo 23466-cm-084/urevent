@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Add Event | UR Events</title>
+<link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+<style>
+
+/* ===== BODY ===== */
+body{
+    margin:0;
+    font-family:'Segoe UI', sans-serif;
+    background: linear-gradient(135deg,#6a11cb,#ff4ecd);
+    min-height:100vh;
+}
+
+/* ===== HEADER ===== */
+.header{
+    padding:30px;
+    color:white;
+    font-size:28px;
+    font-weight:600;
+}
+
+/* ===== FORM CARD ===== */
+.container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px;
+}
+
+.form-card{
+    width:650px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    padding:35px;
+    border-radius:18px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.25);
+    color:white;
+}
+
+/* ===== INPUT GROUP ===== */
+.group{
+    margin-bottom:18px;
+}
+
+.group label{
+    display:block;
+    margin-bottom:6px;
+    font-size:14px;
+}
+
+.group input,
+.group textarea,
+.group select{
+    width:100%;
+    padding:12px;
+    border-radius:8px;
+    border:none;
+    outline:none;
+    font-size:15px;
+}
+
+/* ===== IMAGE PREVIEW ===== */
+.preview{
+    margin-top:10px;
+}
+
+.preview img{
+    width:100%;
+    border-radius:10px;
+}
+
+/* ===== FEATURED CHECK ===== */
+.featured{
+    margin-top:15px;
+}
+
+/* ===== BUTTON ===== */
+.btn{
+    width:100%;
+    padding:14px;
+    margin-top:20px;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:600;
+    background:#ff2f92;
+    color:white;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background:#ff4ecd;
+}
+
+.back-btn{
+    position: absolute;
+    top: 5vh;
+    left: 7vh;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.back-btn:hover{
+    background:#222;
+}
+
+
+</style>
+
+</head>
+<body>
+    <button onclick="goBack()" class="back-btn">
+    ⬅ Back
+    </button>
+
+<div class="header" style="display: flex;justify-content: center;align-items: center;">
+    ➕ Add New Event
+</div>
+
+<div class="container">
+
+<div class="form-card">
+
+<form method="POST" enctype="multipart/form-data">
+
+<!-- TITLE -->
+<div class="group">
+<label>Event Title</label>
+<input name="title" required>
+</div>
+
+<!-- COLLEGE -->
+<div class="group">
+<label>College / University</label>
+<input name="college" required>
+</div>
+
+<!-- DATE + TIME -->
+<div class="group">
+<label>Date</label>
+<input type="date" name="date" required>
+</div>
+
+<div class="group">
+<label>Time</label>
+<input type="time" name="time" required>
+</div>
+
+<!-- VENUE -->
+<div class="group">
+<label>Venue</label>
+<input name="venue" required>
+</div>
+
+<!-- CATEGORY -->
+<div class="group">
+<label>Category</label>
+<select name="category">
+<option>Music</option>
+<option>Tech</option>
+<option>Sports</option>
+<option>Workshop</option>
+<option>Festival</option>
+</select>
+</div>
+
+<!-- DESCRIPTION -->
+<div class="group">
+<label>Description</label>
+<textarea name="description" rows="4"></textarea>
+</div>
+
+<!-- IMAGE -->
+<div class="group">
+<label>Upload Event Image</label>
+<input type="file" name="image" accept="image/*" onchange="previewImage(event)">
+<div class="preview">
+<img id="imgPreview" style="display:none;">
+</div>
+</div>
+
+<!-- FEATURED -->
+<div class="featured">
+<label>
+<input type="checkbox" name="featured" value="1">
+ Show in Homepage Slider
+</label>
+</div>
+
+<button class="btn">
+🚀 Create Event
+</button>
+
+</form>
+
+</div>
+</div>
+
+<script>
+function previewImage(event){
+    const reader = new FileReader();
+    reader.onload = function(){
+        const img = document.getElementById("imgPreview");
+        img.src = reader.result;
+        img.style.display = "block";
+    }
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+
+function goBack(){
+    if(document.referrer){
+        window.history.back();
+    }else{
+        window.location.href="/admin/dashboard";
+    }
+}
+
+</script>
+
+</body>
+</html>

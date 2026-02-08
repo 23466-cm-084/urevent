@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ event.title }} | UR Events</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+<style>
+*{
+    box-sizing:border-box;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
+body{
+    margin:0;
+    background:#f6f6fb;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar{
+    background: linear-gradient(to right, #ED4690, #5522CC);
+    padding:18px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:white;
+}
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-weight:500;
+}
+.login-btn{
+    padding:6px 16px;
+    border:1px solid white;
+    border-radius:20px;
+}
+
+/* ---------- EVENT HEADER ---------- */
+.header{
+    background: linear-gradient(to right, #ED4690, #5522CC);
+    padding:40px;
+}
+.event-box{
+    max-width:1200px;
+    margin:auto;
+    background:#b58cff;
+    border-radius:20px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    overflow:hidden;
+}
+
+/* ---------- IMAGE ---------- */
+.event-img{
+    background-size:cover;
+    background-position:center;
+    min-height:340px;
+    position:relative;
+}
+.free-badge{
+    position:absolute;
+    bottom:15px;
+    left:15px;
+    background:#6a00ff;
+    color:white;
+    padding:6px 12px;
+    border-radius:8px;
+    font-size:13px;
+}
+
+/* ---------- DETAILS ---------- */
+.event-info{
+    padding:30px;
+    color:#222;
+}
+.event-info h1{
+    margin-top:0;
+}
+.event-info p{
+    color:#333;
+    font-size:14px;
+}
+.event-meta{
+    margin:18px 0;
+    font-size:14px;
+}
+.event-meta div{
+    margin-bottom:8px;
+}
+.btn-group{
+    margin-top:20px;
+}
+.btn{
+    padding:10px 18px;
+    border-radius:25px;
+    border:none;
+    cursor:pointer;
+    font-weight:600;
+}
+.btn-primary{
+    background:#f107a3;
+    color:white;
+}
+.btn-outline{
+    background:transparent;
+    border:2px solid #7b2ff7;
+    color:#7b2ff7;
+    margin-left:10px;
+}
+
+/* ---------- MORE DETAILS ---------- */
+.section{
+    max-width:1100px;
+    margin:60px auto;
+    padding:0 20px;
+}
+.section h2{
+    margin-bottom:15px;
+}
+.section ul{
+    padding-left:20px;
+}
+.section li{
+    margin-bottom:8px;
+}
+
+/* ---------- POPULAR EVENTS ---------- */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+}
+.card{
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 12px 25px rgba(0,0,0,0.12);
+}
+.card-img{
+    height:160px;
+    background-size:cover;
+    background-position:center;
+}
+.card-body{
+    padding:15px;
+}
+.card-title{
+    font-weight:600;
+}
+.card-meta{
+    font-size:13px;
+    color:#777;
+}
+.card a{
+    display:inline-block;
+    margin-top:10px;
+    color:#7b2ff7;
+    text-decoration:none;
+    font-size:13px;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+    background:#0c0c5c;
+    color:#ccc;
+    padding:40px;
+    font-size:13px;
+}
+footer .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+}
+footer h4{color:white;}
+footer input{
+    padding:8px;
+    border-radius:20px;
+    border:none;
+    width:70%;
+}
+footer button{
+    padding:8px 12px;
+    background:#f107a3;
+    border:none;
+    color:white;
+    border-radius:20px;
+}
+.copy{
+    text-align:center;
+    margin-top:20px;
+    opacity:0.6;
+}
+
+
+.logo img {
+        height: 45px;   /* adjust if needed */
+        width: auto;
+        display: block;
+        margin-bottom:10px;
+}
+
+
+@media(max-width:900px){
+    .event-box{grid-template-columns:1fr;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo" style="display: flex;">
+    <a href="/">
+        <img src="{{ url_for('static', filename='images/UR_logo.png') }}" alt="UR Events Logo">
+    </a>
+    </div>
+    <div>
+        <a href="/">Home</a>
+        <a href="/events">Events</a>
+        <a href="/about">About</a>
+        <a href="#">Contact</a>
+        <a href="/admin/login" class="login-btn">Admin</a>
+    </div>
+</div>
+
+<!-- EVENT HEADER -->
+<div class="header">
+    <div class="event-box">
+
+        <div class="event-img"
+             style="background-image:url('{{ url_for('static', filename='uploads/' + (event.image or 'default.png')) }}')">
+            <div class="free-badge">FREE</div>
+        </div>
+
+        <div class="event-info">
+            <h1>{{ event.title }}</h1>
+            <p>{{ event.description }}</p>
+
+            <div class="event-meta">
+                <div>📍 <b>Location:</b> {{ event.college }}</div>
+                <div>📅 <b>Date:</b> {{ event.date }}</div>
+                <div>🎟️ <b>Entry:</b> Absolutely FREE for all!</div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary"
+                        onclick="location.href='/register/{{ event.id }}'">
+                    Book Event
+                </button>
+                <button class="btn btn-outline"
+                        onclick="document.getElementById('more').scrollIntoView({behavior:'smooth'})">
+                    Learn More
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- MORE DETAILS -->
+<div class="section" id="more">
+    <h2>More Details</h2>
+    <p>
+        Whether you're a tech enthusiast, an aspiring innovator, or just curious
+        about the future, this event is the place to be.
+    </p>
+    <ul>
+        <li>Live Demos & Showcases</li>
+        <li>Tech Talks & Expert Panels</li>
+        <li>Robotics, AI, IoT, and Beyond</li>
+        <li>Interactive Student Projects</li>
+        <li>Networking with Industry Experts</li>
+        <li>Fun Competitions & Giveaways</li>
+    </ul>
+</div>
+
+<!-- POPULAR EVENTS -->
+<div class="section">
+    <h2 style="text-align:center;">Popular Events</h2>
+    <div class="cards">
+        {% for p in popular_events %}
+        <div class="card">
+            <div class="card-img"
+                 style="background-image:url('{{ url_for('static', filename='uploads/' + (p.image or 'default.png')) }}')">
+            </div>
+            <div class="card-body">
+                <div class="card-title">{{ p.title }}</div>
+                <div class="card-meta">{{ p.college }}</div>
+                <a href="/event/{{ p.id }}">View Details</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+<div class="grid">
+    <div>
+        <div class="logo">
+        <a href="/">
+            <img src="{{ url_for('static', filename='images/UR_logo.png') }}" alt="UR Events Logo">
+        </a>
+    </div>
+        <p>College event discovery & management platform.</p>
+    </div>
+    <div>
+        <h4>Plan Events</h4>
+        <p>Create & Set Up</p>
+        <p>Online RSVP</p>
+    </div>
+    <div>
+        <h4>Eventick</h4>
+        <p>About</p>
+        <p>Contact</p>
+    </div>
+    <div>
+        <h4>Stay in the Loop</h4>
+        <input placeholder="Email">
+        <button>Subscribe</button>
+    </div>
+</div>
+<div class="copy">© 2025 UR Events</div>
+</footer>
+
+</body>
+</html>

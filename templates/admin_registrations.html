@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Event Registrations | Admin</title>
+<link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#6a11cb,#ff4ecd);
+    min-height:100vh;
+}
+
+/* HEADER */
+.header{
+    display:flex;
+    align-items:center;
+    padding:25px 40px;
+    color:white;
+    font-size:24px;
+}
+
+/* BACK BUTTON */
+.back-btn{
+    margin-right:20px;
+    padding:10px 16px;
+    border:none;
+    border-radius:10px;
+    background:rgba(255,255,255,0.25);
+    color:white;
+    cursor:pointer;
+}
+
+/* CARD */
+.container{
+    padding:30px;
+}
+
+.card{
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 15px 45px rgba(0,0,0,0.25);
+}
+
+/* TABLE */
+table{
+    width:100%;
+    border-collapse:collapse;
+    color:white;
+}
+
+th{
+    text-align:left;
+    padding:14px;
+    background:rgba(255,255,255,0.2);
+}
+
+td{
+    padding:14px;
+    border-bottom:1px solid rgba(255,255,255,0.2);
+}
+
+tr:hover{
+    background:rgba(255,255,255,0.1);
+}
+
+/* BADGE */
+.badge{
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+
+.back-btn:hover{
+    background: #ebc6c682;
+}
+
+.new{ background:#4caf50; }
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<button onclick="goBack()" class="back-btn">⬅ Back</button>
+Event Registrations
+</div>
+
+<div class="container">
+<div class="card">
+
+<table>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Message</th>
+<th>Date</th>
+<th>Status</th>
+</tr>
+
+{% for r in registrations %}
+<tr>
+<td>{{ r.name }}</td>
+<td>{{ r.email }}</td>
+<td>{{ r.phone }}</td>
+<td>{{ r.message }}</td>
+<td>{{ r.created_at }}</td>
+<td><span class="badge new">New</span></td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+</div>
+
+<script>
+function goBack(){
+    if(document.referrer){
+        window.history.back();
+    }else{
+        window.location="/admin/dashboard";
+    }
+}
+</script>
+
+</body>
+</html>

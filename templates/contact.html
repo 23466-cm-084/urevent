@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Contact Us | UR Events</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+<style>
+body{
+    margin:0;
+    font-family:Segoe UI, Arial;
+    background:#f6f6fb;
+}
+.header{
+    padding:80px;
+    text-align:center;
+    color:white;
+}
+.container{
+    max-width:1100px;
+    margin:-60px auto 80px;
+    background:white;
+    border-radius:16px;
+    display:grid;
+    grid-template-columns:1fr 1.5fr;
+    box-shadow:0 20px 40px rgba(0,0,0,0.15);
+}
+.left{
+    background: linear-gradient(to right bottom, #ED4690, #5522CC);
+    padding:40px;
+    color:white;
+    border-radius:16px 0 0 16px;
+}
+.left p{opacity:0.9;}
+.right{
+    padding:40px;
+}
+input, textarea{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-bottom:2px solid #ddd;
+    margin-bottom:20px;
+    font-size:14px;
+}
+textarea{height:100px;}
+.radio-group{
+    margin: 16px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 45px;
+}
+button{
+    background:#f107a3;
+    color:white;
+    border:none;
+    padding:12px 30px;
+    border-radius:25px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar{
+    padding:18px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:white;
+}
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-weight:500;
+}
+
+.login-btn {
+            padding: 6px 16px;
+            border: 1px solid white;
+            border-radius: 20px;
+        }
+
+.main{
+    background-image:url('{{ url_for('static', filename='images/Main_Background_Image.png') }}');
+    background-position: center center;
+    background-size: max(1200px, 100vw);
+    background-repeat: no-repeat;
+    width: 100%;
+}
+
+.logo img {
+        height: 45px;   /* adjust if needed */
+        width: auto;
+        display: block;
+        }
+</style>
+</head>
+
+<body>
+
+<div class="main">
+
+    <!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo" style="display:flex;">
+    <a href="/">
+        <img src="{{ url_for('static', filename='images/UR_logo.png') }}" alt="UR Events Logo">
+    </a>
+    </div>
+    <div>
+        <a href="/">Home</a>
+        <a href="/events">Events</a>
+        <a href="/about">About</a>
+        <a href="/admin/login" class="login-btn">Admin</a>
+    </div>
+</div>
+
+
+<div class="header">
+    <h1>Contact Us</h1>
+    <p>Any question or remarks? Just write us a message!</p>
+</div>
+
+</div>
+
+<div class="container">
+    <!-- LEFT -->
+    <div class="left">
+        <h3>Contact Information</h3>
+        <p>Say something to start a live chat!</p>
+        <p>📞 +91 76749 15473</p>
+        <p>✉️ urevents@gmail.com</p>
+        <p>📍 Usha Rama College Road , Near Gannavaram Ungutur Mandalam, Telaprolu, Andhra Pradesh 521109</p>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+        <form method="POST">
+            <input name="first_name" placeholder="First Name" required>
+            <input name="last_name" placeholder="Last Name" required>
+            <input name="email" type="email" placeholder="Email" required>
+            <input name="phone" placeholder="Phone Number" required>
+
+            <div class="radio-group">
+                <b>Select Subject :</b> 
+                <div>General Inquiry<input type="radio" name="subject" value="General Inquiry" checked></div>
+                <div>Event Related<input type="radio" name="subject" value="Event Related"> </div>
+                <div>Technical<input type="radio" name="subject" value="Technical"></div>
+            </div>
+
+            <textarea name="message" placeholder="Write your message..." required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

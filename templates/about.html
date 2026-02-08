@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us | UR Events</title>
+<link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+
+
+<style>
+*{
+    box-sizing:border-box;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
+body{
+    margin:0;
+    background:#f6f6fb;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar{
+    padding:18px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:white;
+}
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-weight:500;
+}
+.login-btn{
+    padding:6px 16px;
+    border:1px solid white;
+    border-radius:20px;
+}
+
+/* ---------- HEADER ---------- */
+.header{
+    padding:80px 20px;
+    text-align:center;
+    color:white;
+}
+.header h1{
+    margin:0;
+    font-size:38px;
+}
+.header p{
+    margin-top:15px;
+    font-size:15px;
+    opacity:0.95;
+}
+
+/* ---------- CONTENT ---------- */
+.section{
+    max-width:1100px;
+    margin:60px auto;
+    padding:0 20px;
+}
+.section h2{
+    text-align:center;
+    margin-bottom:30px;
+    color:#3b2ca3;
+}
+
+/* ---------- OFFER GRID ---------- */
+.offer-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:30px;
+}
+.offer-item{
+    display:flex;
+    gap:15px;
+}
+.offer-item h4{
+    margin:0 0 6px;
+}
+.offer-item p{
+    font-size:14px;
+    color:#555;
+}
+
+/* ---------- DIVIDER ---------- */
+.divider{
+    margin:60px auto;
+    width:60%;
+    height:2px;
+    background:#ddd;
+}
+
+/* ---------- CONTRIBUTORS ---------- */
+.contributors{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:30px;
+    text-align:center;
+}
+.contributor{
+    background:white;
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+.contributor img{
+    width:70px;
+    margin-bottom:10px;
+}
+
+/* ---------- JOIN ---------- */
+.join{
+    text-align:center;
+}
+.join p{
+    max-width:700px;
+    margin:20px auto;
+    color:#555;
+}
+.join-cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:25px;
+    margin-top:40px;
+}
+.review{
+    background:white;
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+    text-align:left;
+}
+.review img{
+    width:40px;
+    border-radius:50%;
+}
+.review-name{
+    font-weight:600;
+    font-size:14px;
+}
+.review-text{
+    font-size:13px;
+    color:#555;
+    margin-top:10px;
+}
+
+.join-btn{
+    margin-top:40px;
+    padding:12px 28px;
+    background:#f107a3;
+    color:white;
+    border:none;
+    border-radius:30px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+    background:#0c0c5c;
+    color:#ccc;
+    padding:40px;
+    font-size:13px;
+}
+footer .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+}
+footer h4{
+    color:white;
+}
+footer input{
+    padding:8px;
+    border-radius:20px;
+    border:none;
+    width:70%;
+}
+footer button{
+    padding:8px 12px;
+    background:#f107a3;
+    border:none;
+    color:white;
+    border-radius:20px;
+}
+.copy{
+    text-align:center;
+    margin-top:20px;
+    opacity:0.6;
+}
+
+.logo img {
+        height: 45px;   /* adjust if needed */
+        width: auto;
+        display: block;
+        margin-bottom:10px;
+}
+
+.main{
+            background-image:url('{{ url_for('static', filename='images/Main_Background_Image.png') }}');
+            background-position: center center;
+            background-size: max(1200px, 100vw);
+            background-repeat: no-repeat;
+            width: 100%;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="main">
+    
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo" style="display: flex;">
+    <a href="/">
+        <img src="{{ url_for('static', filename='images/UR_logo.png') }}" alt="UR Events Logo">
+    </a>
+    </div>
+    <div>
+        <a href="/">Home</a>
+        <a href="/events">Events</a>
+        <a href="/contact">Contact</a>
+        <a href="/admin/login" class="login-btn">Admin</a>
+    </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+    <h1>About Us</h1>
+    <p>
+        Sri Lanka’s ultimate platform for discovering and managing
+        university-level events across the country.
+    </p>
+
+</div>
+
+</div>
+
+<!-- WHAT WE OFFER -->
+<div class="section">
+    <h2>What We Offer</h2>
+
+    <div class="offer-grid">
+        <div class="offer-item">
+            <div>🎉</div>
+            <div>
+                <h4>Free Events</h4>
+                <p>
+                    Discover a wide range of free academic, cultural, and social
+                    events happening across universities.
+                </p>
+            </div>
+        </div>
+
+        <div class="offer-item">
+            <div>🎟️</div>
+            <div>
+                <h4>Event Booking</h4>
+                <p>
+                    Register and reserve your spot directly through our platform
+                    with ease and simplicity.
+                </p>
+            </div>
+        </div>
+
+        <div class="offer-item">
+            <div>👤</div>
+            <div>
+                <h4>Event Profile</h4>
+                <p>
+                    Track your registered events, manage bookings,
+                    and stay organized.
+                </p>
+            </div>
+        </div>
+
+        <div class="offer-item">
+            <div>🔍</div>
+            <div>
+                <h4>Explore & Discover</h4>
+                <p>
+                    Browse events by category, date, or university and
+                    never miss something exciting.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CONTRIBUTORS -->
+<div class="section">
+    <h2>Our Contributors</h2>
+
+    <div class="contributors">
+        {% for i in range(4) %}
+        <div class="contributor">
+            <img src="{{ url_for('static', filename='images/Logo.jpg') }}" alt="UR">
+            <p><b>University of URCI</b></p>
+            <p style="font-size:13px;color:#666;">
+                Center for Academic & Technical Innovation
+            </p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- JOIN WITH US -->
+<div class="section join">
+    <h2>Join With Us</h2>
+    <p>
+        We are more than just a platform — we are a growing community
+        of students, educators, and innovators. Join us and be part
+        of something meaningful.
+    </p>
+
+    <div class="join-cards">
+        <div class="review">
+            <img src="{{ url_for('static', filename='images/swift_papa.jpg') }}" alt="UR">
+            <div class="review-name">Taylor Swift</div>
+            <div class="review-text">
+                A wonderful platform to explore university events easily.
+            </div>
+        </div>
+
+        <div class="review">
+            <img src="{{ url_for('static', filename='images/Elon_musk.jpg') }}" alt="UR">
+            <div class="review-name">Elon Musk </div>
+            <div class="review-text">
+                Simple, clean, and very useful for students.
+            </div>
+        </div>
+
+        <div class="review">
+            <img src="{{ url_for('static', filename='images/modi.jpg') }}" alt="UR">
+            <div class="review-name">Narendra Modi</div>
+            <div class="review-text">
+                Helped me discover amazing academic events.
+            </div>
+        </div>
+    </div>
+
+    <button class="join-btn"><a href="/contact" style="text-decoration:none;color:white;">Contact for Join</a></button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+<div class="grid">
+    <div>
+        <div class="logo">
+        <a href="/">
+            <img src="{{ url_for('static', filename='images/UR_logo.png') }}" alt="UR Events Logo">
+        </a>
+    </div>
+        <p>College event discovery & management platform.</p>
+    </div>
+    <div>
+        <h4>Plan Events</h4>
+        <p>Create & Set Up</p>
+        <p>Online RSVP</p>
+    </div>
+    <div>
+        <h4>Eventick</h4>
+        <p>About</p>
+        <p>Contact</p>
+    </div>
+    <div>
+        <h4>Stay in the Loop</h4>
+        <input placeholder="Email">
+        <button>Subscribe</button>
+    </div>
+</div>
+<div class="copy">© 2025 UR Events</div>
+</footer>
+
+</body>
+</html>

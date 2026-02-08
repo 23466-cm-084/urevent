@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Contact Messages | Admin</title>
+<link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+<style>
+body{
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #ff4ecd);
+    min-height: 100vh;
+}
+
+/* HEADER */
+.header{
+    display:flex;
+    align-items:center;
+    padding:25px 40px;
+    color:white;
+    font-size:24px;
+}
+
+/* CARD */
+.container{
+    padding:30px;
+}
+
+.card{
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    padding:25px;
+}
+
+/* TABLE */
+table{
+    width:100%;
+    border-collapse:collapse;
+    color:white;
+}
+
+th{
+    padding:14px;
+    background:rgba(255,255,255,0.2);
+}
+
+td{
+    padding:14px;
+    border-bottom:1px solid rgba(255,255,255,0.2);
+}
+
+tr:hover{
+    background:rgba(255,255,255,0.1);
+}
+
+/* SUBJECT TAG */
+.tag{
+    padding:6px 10px;
+    border-radius:15px;
+    font-size:12px;
+    background:#ff4ecd;
+}
+
+.back-btn{
+    margin-right: 20px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    cursor: pointer;
+}
+
+.back-btn:hover{
+    background: #ebc6c682;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<button onclick="goBack()" class="back-btn">⬅ Back</button>
+Contact Messages
+</div>
+
+<div class="container">
+<div class="card">
+
+<table>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Subject</th>
+<th>Message</th>
+<th>Date</th>
+</tr>
+
+{% for m in messages %}
+<tr>
+<td>{{ m.first_name }} {{ m.last_name }}</td>
+<td>{{ m.email }}</td>
+<td>{{ m.phone }}</td>
+<td><span class="tag">{{ m.subject }}</span></td>
+<td>{{ m.message }}</td>
+<td>{{ m.created_at }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+</div>
+
+<script>
+function goBack(){
+    if(document.referrer){
+        window.history.back();
+    }else{
+        window.location="/admin/dashboard";
+    }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | UR Events</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* ---------- NAVBAR ---------- */
+        .navbar {
+            background-image:url('{{ url_for('static', filename='images/Main_Background_Image.png') }}');
+            background-size: max(1200px, 100%);
+            background-repeat: no-repeat;
+            background-position: center center;
+            width: 100%;
+            padding: 18px 40px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height:8vh;
+        }
+
+        .navbar .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+        }
+
+        .login-btn {
+            padding: 6px 16px;
+            border: 1px solid white;
+            border-radius: 20px;
+        }
+
+        /* ---------- LOGIN CARD ---------- */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            background-image:url('{{ url_for('static', filename='images/cele_3.png') }}');
+            background-size: max(1200px, 100%);
+            background-repeat: no-repeat;
+            background-position: center center;
+            width: 100%;
+            height:67vh;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 900px;
+            background-image:url('{{ url_for('static', filename='images/Main_Background_Image.png') }}');
+            background-size: max(1200px, 100%);
+            background-repeat: no-repeat;
+            background-position: center center;
+            width: 100%;
+            border-radius: 20px;
+            padding: 50px;
+            display: flex;
+            gap: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        }
+
+        /* LEFT TEXT */
+        .login-info {
+            flex: 1;
+            color: white;
+        }
+
+        .login-info h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .login-info p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .login-info a {
+            color: #00eaff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* RIGHT FORM */
+        .login-form {
+            flex: 1;
+            background: #efe7fb;
+            border-radius: 18px;
+            padding: 35px;
+        }
+
+        .login-form label {
+            font-size: 14px;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 25px;
+            border: 1px solid #ccc;
+            margin-bottom: 18px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .password-box {
+            position: relative;
+        }
+
+        .show-btn {
+            position: absolute;
+            right: 14px;
+            top: 33%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .login-submit {
+            width: 100%;
+            background: #f107a3;
+            border: none;
+            color: white;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .or {
+            text-align: center;
+            margin: 18px 0;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .google-btn {
+            width: 100%;
+            background: white;
+            border: 1px solid #ddd;
+            padding: 12px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: not-allowed;
+        }
+
+        /* ---------- FOOTER ---------- */
+        footer {
+            background: #0c0c5c;
+            color: #ccc;
+            padding: 30px 40px;
+            font-size: 13px;
+            height:25vh;
+        }
+
+        footer .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        footer h4 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        footer input {
+            padding: 8px 10px;
+            border-radius: 20px;
+            border: none;
+            width: 70%;
+        }
+
+        footer button {
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: none;
+            background: #f107a3;
+            color: white;
+            margin-left: 5px;
+        }
+
+        footer .copy {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .logo img {
+        height: 45px;   /* adjust if needed */
+        display: block;
+        margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .login-card {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo" style="display: flex;justify-content: center;align-items: center;">
+    <a href="/">
+        <img src="{{ url_for('static', filename='images/UR_logo.png') }}" alt="UR Events Logo">
+    </a>
+    </div>
+    <div>
+        <a href="/">Home</a>
+        <a href="/events" class="login-btn"> Events</a>
+        <a href="/about">About</a>
+        <a href="#">Contact</a>
+    </div>
+</div>
+
+<!-- LOGIN SECTION -->
+<div class="container">
+    <div class="login-card">
+
+        <!-- LEFT -->
+        <div class="login-info">
+            <h2>Login For Admin</h2>
+            <p>
+                For the purpose of industry regulation, Admin details are required.
+            </p>
+           
+        </div>
+
+        <!-- RIGHT -->
+        <div class="login-form">
+            <form method="POST">
+                <label>Email address *</label>
+                <input type="text" name="username" placeholder="Enter username or email address" required>
+
+                <label>Password *</label>
+                <div class="password-box">
+                    <input type="password" name="password" placeholder="Enter your password" required>
+                    <span class="show-btn">Show</span>
+                </div>
+
+                <button type="submit" class="login-submit">Login Account</button>
+
+                <div class="or">or</div>
+
+                <button type="button" class="google-btn" style="display: flex;justify-content: center;align-items: center;gap: 17px;">
+                <img src="{{ url_for('static', filename='images/googleLogo.png') }}" alt="G" style="width:17px">    Sign in with Google
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <div class="logo">
+            <a href="/">
+                <img src="{{ url_for('static', filename='images/UR_logo.png') }}" alt="UR Events Logo">
+            </a>
+            </div>
+            <p>
+                A college event platform to explore, manage and participate
+                in academic and cultural events.
+            </p>
+        </div>
+
+        <div>
+            <h4>Plan Events</h4>
+            <p>Create & Set Up</p>
+            <p>Online RSVP</p>
+            <p>Online Events</p>
+        </div>
+
+        <div>
+            <h4>Eventick</h4>
+            <p>About Us</p>
+            <p>Contact</p>
+            <p>Help Center</p>
+        </div>
+
+        <div>
+            <h4>Stay in the Loop</h4>
+            <input type="email" placeholder="Enter email">
+            <button>Subscribe</button>
+        </div>
+    </div>
+
+    <div class="copy">
+        Copyright © 2025 UR Events
+    </div>
+</footer>
+
+</body>
+</html>
