@@ -1,0 +1,347 @@
+Program No 2: Simple Hello World Program
+
+XML Code:
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:text="Hello World!"
+    android:textSize="24sp" />
+
+</LinearLayout>
+
+Java Code:
+
+package com.example.myapp;
+
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}
+
+
+
+Program No 3: Toast Message Program
+
+XML Code:
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnToast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Toast" />
+
+</LinearLayout>
+
+
+Java Code:
+
+package com.example.myapp;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    Button btn;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        btn = findViewById(R.id.btnToast);
+
+        btn.setOnClickListener(v -> 
+            Toast.makeText(MainActivity.this,
+                    "Hello Buddy!",
+                    Toast.LENGTH_SHORT).show()
+        );
+    }
+}
+
+
+
+
+Program No 4: Factorial Program
+
+XML Code:
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter a Number To know it's Factorial :"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.17"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.238" />
+
+    <EditText
+        android:id="@+id/et1"
+        android:layout_width="56dp"
+        android:layout_height="41dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.232" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.175" />
+
+</LinearLayout>
+
+Java Code:
+
+package com.example.factorialnumber;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+
+    Button button;
+    EditText et1;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        button = findViewById(R.id.button);
+        et1 = findViewById(R.id.et1);
+
+        button.setOnClickListener(v -> {
+            int num = Integer.parseInt(et1.getText().toString());
+            int fact = 1;
+            for(int i=1;i<=num;i++) {
+                fact= fact*i;
+            }
+
+            Toast.makeText(this, "Factorial of " +num+ " is :"+fact, Toast.LENGTH_SHORT).show();
+        });
+    }
+}
+
+
+
+
+Program No 5: CheckBox in Android
+
+XML Code:
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <CheckBox
+        android:id="@+id/milk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Milk" />
+
+    <CheckBox
+        android:id="@+id/chocolate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chocolate" />
+
+    <CheckBox
+        android:id="@+id/coffee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coffee" />
+
+    <Button
+        android:id="@+id/btnOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>
+
+Java Code:
+
+package com.example.checkbox;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    CheckBox milk, chocolate, coffee;
+    Button btn;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        milk = findViewById(R.id.milk);
+        chocolate = findViewById(R.id.chocolate);
+        coffee = findViewById(R.id.coffee);
+        btn = findViewById(R.id.btnOrder);
+
+        btn.setOnClickListener(v -> {
+
+            String result = "Selected: ";
+
+            if (milk.isChecked()) {
+                result += "Milk ";
+            }
+            if (chocolate.isChecked()) {
+                result += "Chocolate ";
+            }
+            if (coffee.isChecked()) {
+                result += "Coffee ";
+            }
+
+            Toast.makeText(MainActivity.this,
+                    result,
+                    Toast.LENGTH_SHORT).show();
+        });
+    }
+}
+
+
+
+Program No 6: Spinner Widget 
+
+XML Code:
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <Spinner
+        android:id="@+id/spinnerItems"
+        android:layout_width="254dp"
+        android:layout_height="56dp" />
+
+</LinearLayout>
+
+Java Code:
+
+package com.example.spinner;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
+import android.widget.AdapterView;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    Spinner spinner;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        spinner = findViewById(R.id.spinnerItems);
+
+        String[] items = {"Select an item","Apple", "Banana", "Cherry"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                items
+        );
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); //it tells that how the dropdown menu should look ie, looks simple
+        spinner.setAdapter(adapter); //it sets the adapter to the spinner ie, now the data will be shown in ui in spinner
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selected = items[position];
+
+                Toast.makeText(MainActivity.this,
+                        "Selected: " + selected,
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+}
+
