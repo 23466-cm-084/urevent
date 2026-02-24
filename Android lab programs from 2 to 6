@@ -615,6 +615,101 @@ NOTE : ADD THE BELOW LINE INSIDE ANDROIDMANIFEST.XML FILE UNDER APPLICATION  TAG
 <activity android:name=".SecondActivity" />
 
 
+
+Program No 09: Image Filtering ie, applying GrayScale and Sepia Effects to an Image
+
+XML code :
+
+Put one image inside res/drawable (example: sample.jpg)
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/sample"
+        android:scaleType="centerCrop"/>
+
+    <Button
+        android:id="@+id/btnGray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GrayScale"
+        android:layout_marginTop="15dp"/>
+
+    <Button
+        android:id="@+id/btnSepia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sepia"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btnReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>
+
+JAVA Code:
+
+package com.example.imagefiltering;
+
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageView;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    ImageView imageView;
+    Button btnGray, btnSepia, btnReset;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        imageView = findViewById(R.id.imageView);
+        btnGray = findViewById(R.id.btnGray);
+        btnSepia = findViewById(R.id.btnSepia);
+        btnReset = findViewById(R.id.btnReset);
+
+        // GrayScale Filter
+        btnGray.setOnClickListener(v -> {
+            ColorMatrix matrix = new ColorMatrix();
+            matrix.setSaturation(0);
+            imageView.setColorFilter(new ColorMatrixColorFilter(matrix));
+        });
+
+        // Sepia Filter
+        btnSepia.setOnClickListener(v -> {
+            ColorMatrix sepia = new ColorMatrix();
+            sepia.setScale(1f, 1f, 0.8f, 1f);
+            imageView.setColorFilter(new ColorMatrixColorFilter(sepia));
+        });
+
+        // Reset Image
+        btnReset.setOnClickListener(v -> {
+            imageView.clearColorFilter();
+        });
+    }
+}
+
+
+
 Program No 13: Option Menu Program
 
 ⭐ activity_main.xml :
@@ -875,3 +970,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
+
+
+ChatGpt link "https://chatgpt.com/share/699cfd1a-eeac-8011-8375-5302208c716b"
