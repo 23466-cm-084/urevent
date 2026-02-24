@@ -710,6 +710,232 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+Program No 10 : Date and Time Picker and Displaying on the screen.
+
+XML Code :
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:gravity="center">
+
+    <Button
+        android:id="@+id/btnDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Date"/>
+
+    <Button
+        android:id="@+id/btnTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Time"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected Date & Time"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>
+
+JAVA Code :
+
+package com.example.datetimepicker;
+
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+import java.util.Calendar;
+
+public class MainActivity extends AppCompatActivity {
+
+    Button btnDate, btnTime;
+    TextView tvResult;
+
+    int day, month, year, hour, minute;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        btnDate = findViewById(R.id.btnDate);
+        btnTime = findViewById(R.id.btnTime);
+        tvResult = findViewById(R.id.tvResult);
+
+        Calendar calendar = Calendar.getInstance();
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        month = calendar.get(Calendar.MONTH);
+        year = calendar.get(Calendar.YEAR);
+        hour = calendar.get(Calendar.HOUR_OF_DAY);
+        minute = calendar.get(Calendar.MINUTE);
+
+        btnDate.setOnClickListener(v -> {
+
+            DatePickerDialog datePicker = new DatePickerDialog(
+                    this,
+                    (view, y, m, d) -> {
+                        tvResult.setText("Date: " + d + "/" + (m+1) + "/" + y);
+                    },
+                    year, month, day
+            );
+
+            datePicker.show();
+        });
+
+        btnTime.setOnClickListener(v -> {
+
+            TimePickerDialog timePicker = new TimePickerDialog(
+                    this,
+                    (view, h, min) -> {
+                        tvResult.setText(tvResult.getText() +
+                                "\nTime: " + h + ":" + min);
+                    },
+                    hour, minute, true
+            );
+
+            timePicker.show();
+        });
+    }
+}
+
+
+Program No 11: Image changes dynamically when click on button
+
+XML Code : 
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/image1"
+        android:scaleType="centerCrop"/>
+
+    <Button
+        android:id="@+id/btnChange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Image"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>
+
+// NOTE :  Put two images inside:📂 res/drawable/    Example:image1.jpg & image2.jpg
+
+JAVA Code :
+
+package com.example.imageswitcher;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageView;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    ImageView imageView;
+    Button btnChange;
+
+    boolean isFirstImage = true;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        imageView = findViewById(R.id.imageView);
+        btnChange = findViewById(R.id.btnChange);
+
+        btnChange.setOnClickListener(v -> {
+
+            if (isFirstImage) {
+                imageView.setImageResource(R.drawable.image2);
+            } else {
+                imageView.setImageResource(R.drawable.image1);
+            }
+
+            isFirstImage = !isFirstImage;
+        });
+    }
+}
+
+
+Program No 12: Displaying Alert Message when click on button 
+
+XML Code : 
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnAlert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Alert Dialog"/>
+
+</LinearLayout>
+
+
+JAVA Code :
+
+package com.example.myapp;
+
+import android.os.Bundle;
+import android.app.AlertDialog;
+import android.widget.Button;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    Button btnAlert;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        btnAlert = findViewById(R.id.btnAlert);
+
+        btnAlert.setOnClickListener(v -> {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setTitle("Alert");
+            builder.setMessage("This is a simple Alert Dialog.");
+            builder.setPositiveButton("OK", null);
+
+            builder.show();
+        });
+    }
+}
+
+
+
 Program No 13: Option Menu Program
 
 ⭐ activity_main.xml :
