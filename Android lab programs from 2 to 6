@@ -346,6 +346,157 @@ public class MainActivity extends AppCompatActivity {
 }
 
 
+Program No 7: Multiple Inputs UI (Form)
+
+XML code:
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Name :"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Name"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Phone Number :"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+
+    <EditText
+        android:id="@+id/etPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Phone Number"
+        android:inputType="phone"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Gender :"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rbMale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male"/>
+
+        <RadioButton
+            android:id="@+id/rbFemale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female"/>
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Fav Games :"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <CheckBox
+        android:id="@+id/cbCricket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cricket"/>
+
+    <CheckBox
+        android:id="@+id/cbVolleyball"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Volleyball"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:onClick="submit"
+        android:layout_marginTop="15dp"/>
+
+</LinearLayout>
+
+
+
+JAVA Code:
+
+package com.example.multipleinputsform;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.*;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText etName, etPhone;
+    RadioGroup radioGroup;
+    CheckBox cbCricket, cbVolleyball;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        etName = findViewById(R.id.etName);
+        etPhone = findViewById(R.id.etPhone);
+        radioGroup = findViewById(R.id.radioGroup);
+        cbCricket = findViewById(R.id.cbCricket);
+        cbVolleyball = findViewById(R.id.cbVolleyball);
+    }
+
+    public void submit(View view) {
+
+        String name = etName.getText().toString();
+        String phone = etPhone.getText().toString();
+
+        int selectedId = radioGroup.getCheckedRadioButtonId();
+        RadioButton rb = findViewById(selectedId);
+        String gender = rb.getText().toString();
+
+        String game = "";
+        if (cbCricket.isChecked()) {
+            game += "Cricket ";
+        }
+        if (cbVolleyball.isChecked()) {
+            game += "Volleyball";
+        }
+
+        String result = name + ", " + phone + ", " + gender + ", " + game;
+
+        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+    }
+}
+
 
 Program No 8: Switching Activity 
 
@@ -462,3 +613,265 @@ public class SecondActivity extends AppCompatActivity {
 
 NOTE : ADD THE BELOW LINE INSIDE ANDROIDMANIFEST.XML FILE UNDER APPLICATION  TAG:
 <activity android:name=".SecondActivity" />
+
+
+Program No 13: Option Menu Program
+
+⭐ activity_main.xml :
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+</LinearLayout>
+
+ ⭐ Now inside "res/menu/menu_main.xml" add the below code :
+
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/settings"
+        android:title="Settings"/>
+
+    <item
+        android:id="@+id/help"
+        android:title="Help"/>
+
+    <item
+        android:id="@+id/logout"
+        android:title="Logout"/>
+
+</menu>
+
+ /*    //NOTE : Instead of creating a menu folder and menu_main.xml file  we can do it simply by just adding the code in "MainActivity.java" ie, the below code:
+instead of this line "getMenuInflater().inflate(R.menu.menu_main, menu);" we can just add the below code:
+      " menu.add(0, 1, 0, "Settings");
+        menu.add(0, 2, 0, "Help");
+        menu.add(0, 3, 0, "Logout");  "       */
+
+
+⭐ NOTE : If you want to show the menu without getting any error just replace an attribute "parent" in the "res/values/themes.xml" and if you have 2 theme.xml files than change in both the files ie, 
+change this code  " parent="Theme.Material3.DayNight.NoActionBar" " to this " parent="Theme.AppCompat.Light.DarkActionBar" " because the NoActionBar Prevents the option menu for displaying. And this is same for "Context Menu Program too"
+
+
+JAVA code:
+package com.example.optionmenu;
+
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.settings) {
+            Toast.makeText(this, "Settings Clicked", Toast.LENGTH_SHORT).show();
+        }
+        else if (item.getItemId() == R.id.help) {
+            Toast.makeText(this, "Help Clicked", Toast.LENGTH_SHORT).show();
+        }
+        else if (item.getItemId() == R.id.logout) {
+            Toast.makeText(this, "Logout Clicked", Toast.LENGTH_SHORT).show();
+        }
+
+        return true;
+    }
+}
+
+
+Program No 14 : Context Menu Program
+
+XML Code:
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvContext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Long Press Me"
+        android:textSize="22sp"
+        android:padding="20dp"/>
+
+</LinearLayout>
+
+
+JAVA Code: 
+
+
+package com.example.contextmenu;
+
+import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    TextView tv;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        tv = findViewById(R.id.tvContext);
+
+        registerForContextMenu(tv);   // Enable context menu
+    }
+
+    // Here I have used the menu.add() instead of doing res/menu/menu_main.xml method
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        menu.add(0, 1, 0, "Edit");
+        menu.add(0, 2, 0, "Delete");
+        menu.add(0, 3, 0, "Share");
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        if (item.getItemId() == 1) {
+            Toast.makeText(this, "Edit Clicked", Toast.LENGTH_SHORT).show();
+        }
+        else if (item.getItemId() == 2) {
+            Toast.makeText(this, "Delete Clicked", Toast.LENGTH_SHORT).show();
+        }
+        else if (item.getItemId() == 3) {
+            Toast.makeText(this, "Share Clicked", Toast.LENGTH_SHORT).show();
+        }
+
+        return true;
+    }
+}
+
+Program No 15: PopUp menu 
+
+⭐ activity_main.xml:
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnPopup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Popup Menu"/>
+
+</LinearLayout>
+
+⭐ res/menu/menu_popup.xml : 
+
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/edit"
+        android:title="Edit"/>
+
+    <item
+        android:id="@+id/delete"
+        android:title="Delete"/>
+
+    <item
+        android:id="@+id/share"
+        android:title="Share"/>
+
+</menu>
+
+
+ /*    //NOTE : Instead of creating a menu folder and menu_popup.xml file  we can do it simply by just adding the code in "MainActivity.java" ie, the below code:
+instead of this line "popup.getMenuInflater().inflate(R.menu.menu_popup, popup.getMenu());" we can just add the below code:
+          " popupMenu.getMenu().add(0, 1, 0, "Edit");
+            popupMenu.getMenu().add(0, 2, 0, "Delete");
+            popupMenu.getMenu().add(0, 3, 0, "Share");  "       
+
+
+⭐ NOTE : If you want to show the menu without getting any error just replace an attribute "parent" in the "res/values/themes.xml" and if you have 2 theme.xml files than change in both the files ie, 
+change this code  " parent="Theme.Material3.DayNight.NoActionBar" " to this " parent="Theme.AppCompat.Light.DarkActionBar" " because the NoActionBar Prevents the option menu for displaying.        */
+
+
+JAVA Code:
+
+package com.example.popupmenu;
+
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.PopupMenu;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    Button btnPopup;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        btnPopup = findViewById(R.id.btnPopup);
+
+        btnPopup.setOnClickListener(v -> {
+
+            PopupMenu popup = new PopupMenu(this, btnPopup);
+            popup.getMenuInflater().inflate(R.menu.menu_popup, popup.getMenu());
+
+            popup.setOnMenuItemClickListener(item -> {
+
+                if (item.getItemId() == R.id.edit) {
+                    Toast.makeText(this, "Edit Clicked", Toast.LENGTH_SHORT).show();
+                }
+                else if (item.getItemId() == R.id.delete) {
+                    Toast.makeText(this, "Delete Clicked", Toast.LENGTH_SHORT).show();
+                }
+                else if (item.getItemId() == R.id.share) {
+                    Toast.makeText(this, "Share Clicked", Toast.LENGTH_SHORT).show();
+                }
+
+                return true;
+            });
+
+            popup.show();
+        });
+    }
+}
